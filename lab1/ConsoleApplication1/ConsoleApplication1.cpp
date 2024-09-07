@@ -1,12 +1,21 @@
 ﻿#include <iostream>
+#include <cstdlib>
 using namespace std;
 int main()
 {
     setlocale(LC_ALL, "");
-    int n,raznost,min = 1000,max=0;
-    int kletka[10] = { 25,60,7,8,21,32,529,9,94,1 };
+    int n, raznost,min = 1000,max=0;
     n = 10;
+   
     cout << "--------------------------------------------------------------------\n";
+    cout << "Cимволов в массиве: " << n << "\n";
+    cout << "--------------------------------------------------------------------\n";
+    int kletka[10] = { };
+    for (int i = 0; i < n; i++)
+    {
+        kletka[i] = rand()%100; 
+     
+    }
     cout << "Вывод массива: ";
     for (int i = 0; i < n; i++) {
         if (i != n-1) {
