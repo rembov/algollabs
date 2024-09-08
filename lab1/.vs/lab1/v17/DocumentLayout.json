@@ -14,8 +14,12 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -24,7 +28,7 @@
               "RelativeDocumentMoniker": "ConsoleApplication1\\ConsoleApplication1.cpp",
               "ToolTip": "C:\\Users\\user\\Desktop\\\u041D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430\\lab1\\ConsoleApplication1\\ConsoleApplication1.cpp",
               "RelativeToolTip": "ConsoleApplication1\\ConsoleApplication1.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAACoAAAANAAAA",
+              "ViewState": "AQIAAEgAAAAAAAAAAAAAACoAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-09-07T14:37:59.092Z",
               "EditorCaption": ""
