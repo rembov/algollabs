@@ -16,7 +16,7 @@ void vivod(struct student vvv) {
         printf("Cтудент %s %s \n", stud[i].famil, stud[i].name);
         printf("Факультет %s \n", stud[i].facult);
         printf("Номер зачетной книжки %d \n", stud[i].nomzach);
-        printf("Средний балл %d \n", stud[i].nomzach);
+        printf("Средний балл %d \n", stud[i].sredbal);
     }
 
 }
