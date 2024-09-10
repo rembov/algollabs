@@ -40,7 +40,7 @@ struct student* sozdanie() {
 int poisk(struct student* src, int stud_num) {
     char name[20], famil[20], facult[20];
     unsigned int nomzach;
-    int sredbal;
+    float sredbal;
     printf("Введите фамилию : ");
     scanf_s("%s", famil);
     printf("Введите имя : ");
