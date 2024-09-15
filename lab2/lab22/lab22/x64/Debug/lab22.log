@@ -1,0 +1,5 @@
+﻿  lab22.cpp
+C:\Users\user\Desktop\n\algollabs\lab2\lab22\lab22\lab22.cpp(51,61): warning C4244: return: преобразование "__int64" в "int", возможна потеря данных
+C:\Users\user\Desktop\n\algollabs\lab2\lab22\lab22\lab22.cpp(65,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+C:\Users\user\Desktop\n\algollabs\lab2\lab22\lab22\lab22.cpp(84,14): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+  lab22.vcxproj -> C:\Users\user\Desktop\n\algollabs\lab2\lab22\x64\Debug\lab22.exe
