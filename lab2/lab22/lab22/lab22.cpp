@@ -48,6 +48,7 @@ void qs(int* items, int left, int right) //вызов функции: qs(items, 
     if (i < right) qs(items, i, right);
 }
 
+int compare(const void* a, const void* b) { return ((int*)a - (int*)b); }
 
 
 int main()
