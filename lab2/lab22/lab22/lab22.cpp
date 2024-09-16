@@ -181,5 +181,9 @@ int main()
 
         }
 }
+    delete[] a;
+    delete[] smechani;
+    delete[] vozrast;
+    delete[] ubiv;
      return 0;
 }
