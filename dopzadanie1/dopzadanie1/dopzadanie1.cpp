@@ -21,7 +21,7 @@ int main()
     int** kletka = new int* [n];
     for (int i = 0; i < n; ++i)
         kletka[i] = new int[m];
-
+    srand(time(NULL));
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < n; j++)
@@ -63,12 +63,12 @@ int main()
 
     summa_strok = 0;
     for (int j = 0; j < n; j++) {
-        for (int i = 0; i < m; i++)
-            if (j < i) {
+        for (int i = j+1; i < m; i++)
+            //if (j < i) {
                 summa_strok += kletka[j][i];
                 //summastr[j] = summa_strok;
                // cout << summa_strok<<'\n';
-            }
+            //}
     }
     cout << "Vivod summi vishe glav diag: " << summa_strok << "\n";
     //cout << "Vivod massiva s summoy kajdoi stroki: " << summa_strok << "\n";

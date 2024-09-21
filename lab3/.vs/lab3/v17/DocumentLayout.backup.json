@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\user\\Desktop\\n\\algollabs\\lab3\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D5E2FF96-FD36-4CB9-99D3-F6059D5EEB9B}|lab3\\lab3.vcxproj|C:\\Users\\user\\Desktop\\n\\algollabs\\lab3\\lab3\\lab3.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D5E2FF96-FD36-4CB9-99D3-F6059D5EEB9B}|lab3\\lab3.vcxproj|solutionrelative:lab3\\lab3.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "lab3.cpp",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\n\\algollabs\\lab3\\lab3\\lab3.cpp",
+              "RelativeDocumentMoniker": "lab3\\lab3.cpp",
+              "ToolTip": "C:\\Users\\user\\Desktop\\n\\algollabs\\lab3\\lab3\\lab3.cpp",
+              "RelativeToolTip": "lab3\\lab3.cpp",
+              "ViewState": "AgIAAHsAAAAAAAAAAAAQwIUAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-09-18T09:39:33.903Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

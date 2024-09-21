@@ -1,2 +1,3 @@
 ﻿  dopzadanie1.cpp
+C:\Users\user\Desktop\n\algollabs\dopzadanie1\dopzadanie1\dopzadanie1.cpp(24,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
   dopzadanie1.vcxproj -> C:\Users\user\Desktop\n\algollabs\dopzadanie1\x64\Debug\dopzadanie1.exe
