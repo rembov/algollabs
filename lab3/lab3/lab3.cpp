@@ -75,34 +75,71 @@ void review(void) {
         struc = struc->next;
     }
 }
+struct node* find(char* name)
+{
+    struct node* struc = head;
+    if (head == NULL)
+    {
+        printf("Список пуст\n");
+    }
+    while (struc)
+    {
+        if (strcmp(name, struc->inf) == 0)
+        {
+            printf("Элемент  найден!\n");
+            printf("Элемент: %s\n", struc->inf);
+            return struc;
+        }
+        struc = struc->next;
 
+    }
+    printf("Элемент не найден\n");
+    return NULL;
+
+}
 // Удаление элемента по содержимому 
+// Удаление всех элементов по содержимому
 void del(char* name) {
     struct node* struc = head;
     struct node* prev = NULL;
+    int found = 0;
 
     if (head == NULL) {
         printf("Список пуст\n");
         return;
     }
 
+    // Проход по списку для поиска и удаления всех совпадающих элементов
     while (struc) {
         if (strcmp(name, struc->inf) == 0) {
-            if (prev == NULL) {  // удаление первого элемента
+            found = 1;  // Элемент найден
+
+            // Удаление первого элемента
+            if (prev == NULL) {
                 head = struc->next;
+                free(struc);
+                struc = head;  // обновляем текущий узел после удаления головы
             }
-            else {
+            else {  // Удаление элемента не в начале списка
                 prev->next = struc->next;
+                free(struc);
+                struc = prev->next;  // обновляем текущий узел
             }
-            free(struc);
+
             printf("Элемент удален\n");
-            return;
         }
-        prev = struc;
-        struc = struc->next;
+        else {
+            prev = struc;  // Обновляем предыдущий элемент
+            struc = struc->next;  // Переходим к следующему элементу
+        }
     }
-    printf("Элемент не найден\n");
+
+    if (!found) {
+        printf("Элемент не найден\n");
+    }
 }
+
+
 
 int main() {
     setlocale(LC_ALL, "");
@@ -115,7 +152,8 @@ int main() {
         printf("1. Добавить элемент\n");
         printf("2. Просмотреть список\n");
         printf("3. Удалить элемент\n");
-        printf("4. Выход\n");
+        printf("4. Поиск элемента\n");
+        printf("5. Выход\n");
         printf("Введите выбор: ");
         scanf_s("%d", &choice);
 
@@ -133,15 +171,20 @@ int main() {
             scanf_s("%s", name, (unsigned)_countof(name));
             del(name);
             break;
-        
         case 4:
+            printf("Введите элемент для поиска: ");
+            scanf_s("%s", name, (unsigned)_countof(name));
+            *find(name);
+            break;
+
+        case 5:
             printf("Выход...\n");
             break;
         default:
             printf("Неверный выбор. Попробуйте снова.\n");
             break;
         }
-    } while (choice != 4);
+    } while (choice != 5);
 
     return 0;
 }
