@@ -72,7 +72,9 @@ struct node* get_struct(void)
 	}
 
 	printf("Введите название объекта: \n");   // вводим данные
-	scanf("%s %d", s, &p->priority);
+	scanf("%s", s);
+	printf("Введите приоритет объекта: \n");
+	scanf("%d", &p->priority);
 	if (*s == 0)
 	{
 		printf("Запись не была произведена\n");
@@ -212,6 +214,19 @@ void remove() {
 	return;
 
 }
+void reverse() {
+	struct node* prev = NULL;
+	struct node* current = head;
+	struct node* next = NULL;
+
+	while (current != NULL) {
+		next = current->next; // сохраняем следующий элемент
+		current->next = prev; // разворачиваем ссылку
+		prev = current; // передвигаем указатели на один элемент вперед
+		current = next;
+	}
+	head = prev; // устанавливаем новую голову
+}
 
 
 int main() {
@@ -224,8 +239,8 @@ int main() {
 	Begin = End = el;
 	while (k) {
 		cout << "Меню:\n";
-		cout << "1.Добавление элемента\n2.Удаление элемента по содержимому\n3.Поиск элемента по содержимому\n4.Вывод элементов на экран\n5.Удаление последнего элемента\n" << "0.Выход" << endl;
-		cin >> k;		
+		cout << "1.Добавление элемента\n2.Удаление элемента по содержимому\n3.Поиск элемента по содержимому\n4.Вывод элементов на экран\n5.Удаление последнего элемента\n6.Инверсия очереди\n" << "0.Выход" << endl;
+		cin >> k;
 		switch (k)
 		{
 		case 1:
@@ -245,8 +260,11 @@ int main() {
 		case 5:
 			remove();
 			break;
+		case 6:
+			reverse();
+			break;
 		}
-	
+		
 	}
 	cout << endl;
 	system("pause");
