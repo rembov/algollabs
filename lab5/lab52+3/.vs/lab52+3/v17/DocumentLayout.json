@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\user\\Desktop\\n\\algollabs\\lab5\\lab52\u002B3\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{7BEF710A-C10A-46E4-88CB-B4A2A0661542}|lab52\u002B3.vcxproj|C:\\Users\\user\\Desktop\\n\\algollabs\\lab5\\lab52\u002B3\\lab52\u002B3.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{7BEF710A-C10A-46E4-88CB-B4A2A0661542}|lab52\u002B3.vcxproj|solutionrelative:lab52\u002B3.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "lab52\u002B3.cpp",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\n\\algollabs\\lab5\\lab52\u002B3\\lab52\u002B3.cpp",
+              "RelativeDocumentMoniker": "lab52\u002B3.cpp",
+              "ToolTip": "C:\\Users\\user\\Desktop\\n\\algollabs\\lab5\\lab52\u002B3\\lab52\u002B3.cpp",
+              "RelativeToolTip": "lab52\u002B3.cpp",
+              "ViewState": "AgIAAF8AAAAAAAAAAAAAABgAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-10-04T17:18:32.001Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
