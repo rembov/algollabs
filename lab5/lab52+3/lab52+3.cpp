@@ -70,7 +70,7 @@ int main() {
     float density;
     setlocale(LC_ALL, "RU");
     srand(time(NULL));
-
+    int rebra;
     vertices = rand() % 10 + 3;
     density = (float)rand() / RAND_MAX;
 
@@ -90,8 +90,8 @@ int main() {
             }
         }
     }
-
-    printf("Размер графа: %d\n", vertices);
+    rebra = (vertices * (vertices - 1)) / 2;
+    printf("Размер графа: %d\n", rebra);
     printf("Плотность графа: %.2f\n", density);
     printf("Матрица смежности:\n");
     printAdjacencyMatrix(adjacencyMatrix, vertices);
