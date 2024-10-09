@@ -79,10 +79,19 @@ int CountOccurrences(struct Node* r, int value) {
     int count = (r->data == value) ? 1 : 0;
     count += CountOccurrences(r->left, value);
     count += CountOccurrences(r->right, value);
-
+    
     return count;
 }
+void invertTree(struct Node* node) {
+    if (node == NULL) return;
 
+    struct Node* temp = node->left;
+    node->left = node->right;
+    node->right = temp;
+
+    invertTree(node->left);
+    invertTree(node->right);
+}
 int main() {
     setlocale(LC_ALL, "");
     int D, nn;
@@ -90,7 +99,7 @@ int main() {
 
     do {
         printf("Меню\n");
-        printf("Выбирите нужный пункт:\n1. Создать дерево\n2. Поиск по дереву\n3. Число вхождений\n0. Выход\n");
+        printf("Выбирите нужный пункт:\n1. Создать дерево\n2. Поиск по дереву\n3. Число вхождений\n4. Инвертировать дерево\n0. Выход\n");
         scanf_s("%d", &nn);
 
         switch (nn) {
@@ -131,7 +140,12 @@ int main() {
             printf("Число %d встречается в дереве %d раз(а).\n", D, count);
             break;
         }
-
+        case 4: {
+            invertTree(root);
+            printf("Дерево инвертировано.\n");
+            print_tree(root, 0);
+            break;
+        }
         case 0: {
             printf("Выход из программы.\n");
             break;
