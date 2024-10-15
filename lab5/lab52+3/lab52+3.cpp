@@ -36,7 +36,8 @@ void analyzeGraph(int** matrix, int size) {
     }
 
 int main() {
-    int vertices = 10;
+    int vertices = 100;
+    int rebra = (vertices * (vertices - 1)) / 2;
     srand(time(NULL));
     setlocale(LC_ALL, "Ru");
     if (vertices <= 0) {
@@ -52,10 +53,7 @@ int main() {
     for (int i = 0; i < vertices; i++) {
         adjacencyMatrix[i] = (int*)malloc(vertices * sizeof(int));
         if (adjacencyMatrix[i] == NULL) {
-            printf("Ошибка выделения памяти.\n");
-            for (int k = 0; k < i; k++) {
-                free(adjacencyMatrix[k]);
-            }
+            
             free(adjacencyMatrix);
             return 1;
         }
@@ -73,7 +71,7 @@ int main() {
 
     printf("Матрица смежности:\n");
     printAdjacencyMatrix(adjacencyMatrix, vertices);
-
+    printf("Мощность %d:\n",rebra);
     analyzeGraph(adjacencyMatrix, vertices);
 
     for (int i = 0; i < vertices; i++) {
