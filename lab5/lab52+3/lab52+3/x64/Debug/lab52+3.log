@@ -1,3 +1,3 @@
 ﻿  lab52+3.cpp
-C:\Users\user\Desktop\n\algollabs\algollabs\lab5\lab52+3\lab52+3.cpp(41,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+C:\Users\user\Desktop\n\algollabs\algollabs\lab5\lab52+3\lab52+3.cpp(51,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
   lab52+3.vcxproj -> C:\Users\user\Desktop\n\algollabs\algollabs\lab5\lab52+3\x64\Debug\lab52+3.exe
