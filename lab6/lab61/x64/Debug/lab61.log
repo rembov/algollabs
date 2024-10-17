@@ -1,0 +1,3 @@
+﻿  lab61.cpp
+C:\Users\user\Desktop\n\algollabs\algollabs\lab61\lab61.cpp(58,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  lab61.vcxproj -> C:\Users\user\Desktop\n\algollabs\algollabs\lab61\x64\Debug\lab61.exe
