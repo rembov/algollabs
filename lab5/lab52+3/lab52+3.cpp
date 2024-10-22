@@ -11,6 +11,35 @@ void printAdjacencyMatrix(int** matrix, int size) {
         printf("\n");
     }
 }
+void isOriented(int** adjacencyMatrix, int size) {
+    int k = 0;
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            if (adjacencyMatrix[i][j] != adjacencyMatrix[j][i]) {
+                if (k == 1) {
+                    printf("Да\n");
+                }
+                k++;
+            }
+        }
+    }
+    if (k == 0){
+        printf("Нет\n"); }
+}
+void countLoops(int** adjacencyMatrix, int size) {
+    int loops = 0;
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            if ((adjacencyMatrix[i][i] == 1) || ((adjacencyMatrix[i][j] == 1) && (adjacencyMatrix[j][i] == -1))) {
+                loops++;
+                printf("Петля в вершине %d %d: Входящее и исходящее ребро\n", i, j);
+            }
+        }
+    }
+    if (loops == 0) {
+        printf("Петель нет\n");
+    }
+}
 
 void printIncidenceMatrix(int** incidenceMatrix, int vertices, int edges) {
     for (int i = 0; i < vertices; i++) {
@@ -105,7 +134,7 @@ int main() {
         for (int j = i + 1; j < vertices; j++) {
             if (adjacencyMatrix[i][j] == 1) {
                 incidenceMatrix[i][edgeIndex] = 1;
-                incidenceMatrix[j][edgeIndex] = 1;
+                incidenceMatrix[j][edgeIndex] = -1;
                 edgeIndex++;
             }
         }
@@ -116,8 +145,17 @@ int main() {
 
     printf("Матрица смежности:\n");
     analyzeGraph(adjacencyMatrix, vertices);
+    printf("Подсчет петель:");
+    countLoops(adjacencyMatrix, vertices);
+    
     printf("Матрица инцидентности:\n");
     analyzeGraph(incidenceMatrix, vertices);
+    printf("Подсчет петель:\n");
+    countLoops(adjacencyMatrix, vertices);
+    printf("Ориентированность инцидентной матрицы:\n");
+    isOriented(incidenceMatrix, vertices);
+    printf("Ориентированность смежной матрицы:\n");
+    isOriented(adjacencyMatrix, vertices);
     rebra = ((vertices * (vertices - 1)) / 2);
 
     printf("Мощность: %d\n",rebra);
