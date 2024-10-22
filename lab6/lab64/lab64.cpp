@@ -2,10 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <locale.h>
-
-#define N 5  
-
-
+#define N 10
 void generateAdjacencyMatrix(int matrix[N][N]) {
     for (int i = 0; i < N; i++) {
         for (int j = i; j < N; j++) {
@@ -20,7 +17,6 @@ void generateAdjacencyMatrix(int matrix[N][N]) {
         }
     }
 }
-
 void printAdjacencyMatrix(int matrix[N][N]) {
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
@@ -29,8 +25,6 @@ void printAdjacencyMatrix(int matrix[N][N]) {
         printf("\n");
     }
 }
-
-
 void adjacencyMatrixToList(int matrix[N][N], int adjacencyList[N][N], int degrees[N]) {
     for (int i = 0; i < N; i++) {
         degrees[i] = 0;
@@ -42,8 +36,6 @@ void adjacencyMatrixToList(int matrix[N][N], int adjacencyList[N][N], int degree
         }
     }
 }
-
-
 void printAdjacencyList(int adjacencyList[N][N], int degrees[N]) {
     for (int i = 0; i < N; i++) {
         printf("Вершина %d: ", i);
@@ -53,8 +45,6 @@ void printAdjacencyList(int adjacencyList[N][N], int degrees[N]) {
         printf("\n");
     }
 }
-
-
 void mergeVerticesMatrix(int matrix[N][N], int a, int b) {
     for (int i = 0; i < N; i++) {
         matrix[a][i] |= matrix[b][i];
@@ -62,13 +52,6 @@ void mergeVerticesMatrix(int matrix[N][N], int a, int b) {
     }
     matrix[a][a] = 0;
 }
-
-
-void contractEdgeMatrix(int matrix[N][N], int a, int b) {
-    mergeVerticesMatrix(matrix, a, b);
-}
-
-
 void splitVertexMatrix(int matrix[N][N], int a) {
     if (a >= N - 1) {
         printf("Невозможно расщепить вершину. Недостаточно вершин.\n");
@@ -84,7 +67,6 @@ void splitVertexMatrix(int matrix[N][N], int a) {
         }
     }
 }
-
 void mergeVerticesList(int adjacencyList[N][N], int degrees[N], int a, int b) {
     for (int i = 0; i < degrees[b]; i++) {
         int neighbor = adjacencyList[b][i];
@@ -101,13 +83,6 @@ void mergeVerticesList(int adjacencyList[N][N], int degrees[N], int a, int b) {
     }
     degrees[b] = 0;
 }
-
-
-void contractEdgeList(int adjacencyList[N][N], int degrees[N], int a, int b) {
-    mergeVerticesList(adjacencyList, degrees, a, b);
-}
-
-
 void splitVertexList(int adjacencyList[N][N], int degrees[N], int a) {
     if (degrees[a] == 0) return;
     int new_vertex = degrees[a];
@@ -124,7 +99,6 @@ void unionGraphsMatrix(int result[N][N], int matrix1[N][N], int matrix2[N][N]) {
         }
     }
 }
-
 void intersectionGraphsMatrix(int result[N][N], int matrix1[N][N], int matrix2[N][N]) {
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
@@ -132,7 +106,6 @@ void intersectionGraphsMatrix(int result[N][N], int matrix1[N][N], int matrix2[N
         }
     }
 }
-
 void ringSumGraphsMatrix(int result[N][N], int matrix1[N][N], int matrix2[N][N]) {
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
@@ -158,7 +131,6 @@ void cartesianProductGraphsMatrix(int result[N * N][N * N], int matrix1[N][N], i
         }
     }
 }
-
 void printAdjacencyMatrixCartesian(int matrix[N * N][N * N]) {
     for (int i = 0; i < N * N; i++) {
         for (int j = 0; j < N * N; j++) {
@@ -225,18 +197,18 @@ int main() {
             printf("Введите номера вершин для стягивания ребра (a, b): ");
             scanf_s("%d %d", &a, &b);
             if (graph_choice == 1) {
-                contractEdgeMatrix(matrix1, a, b);
+                mergeVerticesMatrix(matrix1, a, b);
                 printf("Матрица смежности M1 после стягивания ребра:\n");
                 printAdjacencyMatrix(matrix1);
-                contractEdgeList(adjacencyList1, degrees1, a, b);
+                mergeVerticesList(adjacencyList1, degrees1, a, b);
                 printf("\nСписок смежности M1 после стягивания ребра:\n");
                 printAdjacencyList(adjacencyList1, degrees1);
             }
             else {
-                contractEdgeMatrix(matrix2, a, b);
+                mergeVerticesMatrix(matrix2, a, b);
                 printf("Матрица смежности M2 после стягивания ребра:\n");
                 printAdjacencyMatrix(matrix2);
-                contractEdgeList(adjacencyList2, degrees2, a, b);
+                mergeVerticesList(adjacencyList2, degrees2, a, b);
                 printf("\nСписок смежности M2 после стягивания ребра:\n");
                 printAdjacencyList(adjacencyList2, degrees2);
             }
