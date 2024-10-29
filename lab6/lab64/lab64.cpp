@@ -83,6 +83,56 @@ void mergeVerticesList(int adjacencyList[N][N], int degrees[N], int a, int b) {
     }
     degrees[b] = 0;
 }
+
+void deleteVertexMatrix(int matrix[N][N], int vertex) {
+    if (vertex >= N) {
+        printf("Некорректный номер вершины для удаления.\n");
+        return;
+    }
+    for (int i = vertex; i < N - 1; i++) {
+        for (int j = 0; j < N; j++) {
+            matrix[i][j] = matrix[i + 1][j];
+        }
+    }
+ 
+    for (int i = 0; i < N; i++) {
+        for (int j = vertex; j < N - 1; j++) {
+            matrix[i][j] = matrix[i][j + 1];
+        }
+    }
+ 
+    for (int i = 0; i < N; i++) {
+        matrix[N - 1][i] = 0;
+        matrix[i][N - 1] = 0;
+    }
+}
+void deleteVertexList(int adjacencyList[N][N], int degrees[N], int vertex) {
+    if (vertex >= N) {
+        printf("Некорректный номер вершины для удаления.\n");
+        return;
+    }
+    
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < degrees[i]; j++) {
+            if (adjacencyList[i][j] == vertex) {
+                
+                for (int k = j; k < degrees[i] - 1; k++) {
+                    adjacencyList[i][k] = adjacencyList[i][k + 1];
+                }
+                degrees[i]--;
+                j--;
+            }
+            else if (adjacencyList[i][j] > vertex) {
+ 
+                adjacencyList[i][j]--;
+            }
+        }
+    }
+ 
+    degrees[vertex] = 0;
+}
+
+
 void splitVertexList(int adjacencyList[N][N], int degrees[N], int a) {
     if (degrees[a] == 0) return;
     int new_vertex = degrees[a];
@@ -165,7 +215,7 @@ int main() {
 
     int choice, a, b, graph_choice;
     do {
-        printf("\nВыберите операцию:\n1 - Отождествление вершин\n2 - Стягивание ребра\n3 - Расщепление вершины\n4 - Объединение графов\n5 - Пересечение графов\n6 - Кольцевая сумма графов\n7 - Декартово произведение графов\n0 - выход\n");
+        printf("\nВыберите операцию:\n1 - Отождествление вершин\n2 - Стягивание ребра\n3 - Расщепление вершины\n4 - Объединение графов\n5 - Пересечение графов\n6 - Кольцевая сумма графов\n7 - Декартово произведение графов\n8 - Удаление вершины\n0 - выход\n");
         scanf_s("%d", &choice);
         switch (choice) {
         case 1:
@@ -255,6 +305,28 @@ int main() {
             cartesianProductGraphsMatrix(result1, matrix1, matrix2);
             printf("Результат декартова произведения:\n");
             printAdjacencyMatrixCartesian(result1);
+            break;
+        case 8:
+            printf("Выберите граф (1 для M1, 2 для M2): ");
+            scanf_s("%d", &graph_choice);
+            printf("Введите номер вершины для удаления: ");
+            scanf_s("%d", &a);
+            if (graph_choice == 1) {
+                deleteVertexMatrix(matrix1, a);
+                printf("Матрица смежности M1 после удаления вершины:\n");
+                printAdjacencyMatrix(matrix1);
+                deleteVertexList(adjacencyList1, degrees1, a);
+                printf("\nСписок смежности M1 после удаления вершины:\n");
+                printAdjacencyList(adjacencyList1, degrees1);
+            }
+            else {
+                deleteVertexMatrix(matrix2, a);
+                printf("Матрица смежности M2 после удаления вершины:\n");
+                printAdjacencyMatrix(matrix2);
+                deleteVertexList(adjacencyList2, degrees2, a);
+                printf("\nСписок смежности M2 после удаления вершины:\n");
+                printAdjacencyList(adjacencyList2, degrees2);
+            }
             break;
         case 0: {
             printf("Выход из программы.\n");
