@@ -3,7 +3,7 @@
 #include <time.h>
 #include <locale.h>
 #define N 10
-void generateAdjacencyMatrix(int matrix[N][N]) {
+void generateMatrix(int matrix[N][N]) {
     for (int i = 0; i < N; i++) {
         for (int j = i; j < N; j++) {
             if (i == j) {
@@ -17,7 +17,7 @@ void generateAdjacencyMatrix(int matrix[N][N]) {
         }
     }
 }
-void printAdjacencyMatrix(int matrix[N][N]) {
+void printMatrix(int matrix[N][N]) {
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
             printf("%d ", matrix[i][j]);
@@ -198,12 +198,12 @@ int main() {
     int degrees1[N], degrees2[N];
 
 
-    generateAdjacencyMatrix(matrix1);
-    generateAdjacencyMatrix(matrix2);
+    generateMatrix(matrix1);
+    generateMatrix(matrix2);
     printf("Исходная матрица смежности M1:\n");
-    printAdjacencyMatrix(matrix1);
+    printMatrix(matrix1);
     printf("Исходная матрица смежности M2:\n");
-    printAdjacencyMatrix(matrix2);
+    printMatrix(matrix2);
 
 
     adjacencyMatrixToList(matrix1, adjacencyList1, degrees1);
@@ -226,7 +226,7 @@ int main() {
             if (graph_choice == 1) {
                 mergeVerticesMatrix(matrix1, a, b);
                 printf("Матрица смежности M1 после отождествления вершин:\n");
-                printAdjacencyMatrix(matrix1);
+                printMatrix(matrix1);
                 mergeVerticesList(adjacencyList1, degrees1, a, b);
                 printf("\nСписок смежности M1 после отождествления вершин:\n");
                 printAdjacencyList(adjacencyList1, degrees1);
@@ -234,7 +234,7 @@ int main() {
             else {
                 mergeVerticesMatrix(matrix2, a, b);
                 printf("Матрица смежности M2 после отождествления вершин:\n");
-                printAdjacencyMatrix(matrix2);
+                printMatrix(matrix2);
                 mergeVerticesList(adjacencyList2, degrees2, a, b);
                 printf("\nСписок смежности M2 после отождествления вершин:\n");
                 printAdjacencyList(adjacencyList2, degrees2);
@@ -249,7 +249,7 @@ int main() {
             if (graph_choice == 1) {
                 mergeVerticesMatrix(matrix1, a, b);
                 printf("Матрица смежности M1 после стягивания ребра:\n");
-                printAdjacencyMatrix(matrix1);
+                printMatrix(matrix1);
                 mergeVerticesList(adjacencyList1, degrees1, a, b);
                 printf("\nСписок смежности M1 после стягивания ребра:\n");
                 printAdjacencyList(adjacencyList1, degrees1);
@@ -257,7 +257,7 @@ int main() {
             else {
                 mergeVerticesMatrix(matrix2, a, b);
                 printf("Матрица смежности M2 после стягивания ребра:\n");
-                printAdjacencyMatrix(matrix2);
+                printMatrix(matrix2);
                 mergeVerticesList(adjacencyList2, degrees2, a, b);
                 printf("\nСписок смежности M2 после стягивания ребра:\n");
                 printAdjacencyList(adjacencyList2, degrees2);
@@ -272,7 +272,7 @@ int main() {
             if (graph_choice == 1) {
                 splitVertexMatrix(matrix1, a);
                 printf("Матрица смежности M1 после расщепления вершины:\n");
-                printAdjacencyMatrix(matrix1);
+                printMatrix(matrix1);
                 splitVertexList(adjacencyList1, degrees1, a);
                 printf("\nСписок смежности M1 после расщепления вершины:\n");
                 printAdjacencyList(adjacencyList1, degrees1);
@@ -280,7 +280,7 @@ int main() {
             else {
                 splitVertexMatrix(matrix2, a);
                 printf("Матрица смежности M2 после расщепления вершины:\n");
-                printAdjacencyMatrix(matrix2);
+                printMatrix(matrix2);
                 splitVertexList(adjacencyList2, degrees2, a);
                 printf("\nСписок смежности M2 после расщепления вершины:\n");
                 printAdjacencyList(adjacencyList2, degrees2);
@@ -289,17 +289,17 @@ int main() {
         case 4:
             unionGraphsMatrix(result, matrix1, matrix2);
             printf("Результат объединения:\n");
-            printAdjacencyMatrix(result);
+            printMatrix(result);
             break;
         case 5:
             intersectionGraphsMatrix(result, matrix1, matrix2);
             printf("Результат пересечения:\n");
-            printAdjacencyMatrix(result);
+            printMatrix(result);
             break;
         case 6:
             ringSumGraphsMatrix(result, matrix1, matrix2);
             printf("Результат кольцевой суммы:\n");
-            printAdjacencyMatrix(result);
+            printMatrix(result);
             break;
         case 7:
             cartesianProductGraphsMatrix(result1, matrix1, matrix2);
@@ -314,7 +314,7 @@ int main() {
             if (graph_choice == 1) {
                 deleteVertexMatrix(matrix1, a);
                 printf("Матрица смежности M1 после удаления вершины:\n");
-                printAdjacencyMatrix(matrix1);
+                printMatrix(matrix1);
                 deleteVertexList(adjacencyList1, degrees1, a);
                 printf("\nСписок смежности M1 после удаления вершины:\n");
                 printAdjacencyList(adjacencyList1, degrees1);
@@ -322,7 +322,7 @@ int main() {
             else {
                 deleteVertexMatrix(matrix2, a);
                 printf("Матрица смежности M2 после удаления вершины:\n");
-                printAdjacencyMatrix(matrix2);
+                printMatrix(matrix2);
                 deleteVertexList(adjacencyList2, degrees2, a);
                 printf("\nСписок смежности M2 после удаления вершины:\n");
                 printAdjacencyList(adjacencyList2, degrees2);
