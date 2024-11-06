@@ -98,6 +98,37 @@ func d1(adjList map[int][]int) {
 		}
 	}
 }
+
+func dfsI(start int, matrix [][]int, visited []bool) {
+	stack := []int{start}
+
+	for len(stack) > 0 {
+
+		v := stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+
+		if !visited[v] {
+			visited[v] = true
+			fmt.Printf("%d ", v)
+		}
+
+		for i := len(matrix) - 1; i >= 0; i-- {
+			if matrix[v][i] == 1 && !visited[i] {
+				stack = append(stack, i)
+			}
+		}
+	}
+}
+func d2(matrix [][]int) {
+	n := len(matrix)
+	visited := make([]bool, n)
+
+	for v := 0; v < n; v++ {
+		if !visited[v] {
+			dfsI(v, matrix, visited)
+		}
+	}
+}
 func main() {
 	rand.Seed(time.Now().UnixNano())
 
@@ -111,6 +142,8 @@ func main() {
 
 	fmt.Println("\nОбход в глубину матрицы:")
 	d(matrix)
+	fmt.Println("\nОбход в глубину (нерекурсивный):")
+	d2(matrix)
 	fmt.Println("\nОбход в глубину списка:")
 	d1(List1)
 }
