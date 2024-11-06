@@ -48,7 +48,7 @@ func dfs(v int, matrix [][]int, visited []bool) {
 	}
 }
 
-func depthFirstTraversal(matrix [][]int) {
+func d(matrix [][]int) {
 	n := len(matrix)
 	visited := make([]bool, n)
 
@@ -67,5 +67,5 @@ func main() {
 	fmt.Println("Матрица смежности неориентированного графа:")
 	printMatrix(matrix)
 	fmt.Println("\nОбход в глубину:")
-	depthFirstTraversal(matrix)
+	d(matrix)
 }
