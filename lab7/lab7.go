@@ -36,6 +36,28 @@ func printMatrix(matrix [][]int) {
 	}
 }
 
+func dfs(v int, matrix [][]int, visited []bool) {
+
+	visited[v] = true
+	fmt.Printf("%d ", v)
+
+	for i := 0; i < len(matrix); i++ {
+		if matrix[v][i] == 1 && !visited[i] {
+			dfs(i, matrix, visited)
+		}
+	}
+}
+
+func depthFirstTraversal(matrix [][]int) {
+	n := len(matrix)
+	visited := make([]bool, n)
+
+	for v := 0; v < n; v++ {
+		if !visited[v] {
+			dfs(v, matrix, visited)
+		}
+	}
+}
 func main() {
 	rand.Seed(time.Now().UnixNano())
 
@@ -44,4 +66,6 @@ func main() {
 
 	fmt.Println("Матрица смежности неориентированного графа:")
 	printMatrix(matrix)
+	fmt.Println("\nОбход в глубину:")
+	depthFirstTraversal(matrix)
 }
