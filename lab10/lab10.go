@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"math/rand"
 	"time"
 )
@@ -58,6 +59,60 @@ func bfsDistance(matrix [][]int, start int) []int {
 	return dist
 }
 
+func calculateRadiusDiameter(matrix [][]int) (int, int, []int, []int) {
+	n := len(matrix)
+	radius := math.MaxInt
+	diameter := 0
+	peripheral := []int{}
+	central := []int{}
+
+	distances := make([][]int, n)
+	for i := 0; i < n; i++ {
+		distances[i] = bfsDistance(matrix, i)
+	}
+
+	for i := 0; i < n; i++ {
+		maxDist := 0
+		for j := 0; j < n; j++ {
+			if distances[i][j] == -1 {
+				maxDist = math.MaxInt
+			}
+			maxDist = int(math.Max(float64(maxDist), float64(distances[i][j])))
+		}
+
+		diameter = int(math.Max(float64(diameter), float64(maxDist)))
+
+		radius = int(math.Min(float64(radius), float64(maxDist)))
+	}
+
+	for i := 0; i < n; i++ {
+		maxDist := 0
+		for j := 0; j < n; j++ {
+			if distances[i][j] == -1 {
+				maxDist = math.MaxInt
+			}
+			maxDist = int(math.Max(float64(maxDist), float64(distances[i][j])))
+		}
+		if maxDist == diameter {
+			peripheral = append(peripheral, i)
+		}
+	}
+
+	for i := 0; i < n; i++ {
+		maxDist := 0
+		for j := 0; j < n; j++ {
+			if distances[i][j] == -1 {
+				maxDist = math.MaxInt
+			}
+			maxDist = int(math.Max(float64(maxDist), float64(distances[i][j])))
+		}
+		if maxDist == radius {
+			central = append(central, i)
+		}
+	}
+
+	return radius, diameter, peripheral, central
+}
 func main() {
 	rand.Seed(time.Now().UnixNano())
 
@@ -79,4 +134,10 @@ func main() {
 			fmt.Printf("Расстояние до вершины %d: %d\n", i, d)
 		}
 	}
+	radius, diameter, peripheral, central := calculateRadiusDiameter(matrix)
+
+	fmt.Printf("\nРадиус графа: %d\n", radius)
+	fmt.Printf("Диаметр графа: %d\n", diameter)
+	fmt.Printf("Периферийные вершины: %v\n", peripheral)
+	fmt.Printf("Центральные вершины: %v\n", central)
 }
