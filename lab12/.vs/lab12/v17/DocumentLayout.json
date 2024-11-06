@@ -1,9 +1,9 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\user\\Desktop\\n\\algollabs\\lab12\\",
+  "WorkspaceRootPath": "D:\\n\\algollabs\\algollabs\\lab12\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{94E97604-5A9A-4275-9FAA-0524D5EC0A03}|lab12\\lab12.vcxproj|C:\\Users\\user\\Desktop\\n\\algollabs\\lab12\\lab12\\lab12.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{94E97604-5A9A-4275-9FAA-0524D5EC0A03}|lab12\\lab12.vcxproj|D:\\n\\algollabs\\algollabs\\lab12\\lab12\\lab12.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{94E97604-5A9A-4275-9FAA-0524D5EC0A03}|lab12\\lab12.vcxproj|solutionrelative:lab12\\lab12.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
@@ -20,11 +20,11 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "lab12.c",
-              "DocumentMoniker": "C:\\Users\\user\\Desktop\\n\\algollabs\\lab12\\lab12\\lab12.c",
+              "DocumentMoniker": "D:\\n\\algollabs\\algollabs\\lab12\\lab12\\lab12.c",
               "RelativeDocumentMoniker": "lab12\\lab12.c",
-              "ToolTip": "C:\\Users\\user\\Desktop\\n\\algollabs\\lab12\\lab12\\lab12.c",
+              "ToolTip": "D:\\n\\algollabs\\algollabs\\lab12\\lab12\\lab12.c",
               "RelativeToolTip": "lab12\\lab12.c",
-              "ViewState": "AgIAAC8AAAAAAAAAAAAAAAAAAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAAADMAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2024-09-07T18:03:30.496Z",
               "EditorCaption": ""
