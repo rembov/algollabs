@@ -15,10 +15,9 @@ func generateMatrix(n int) [][]int {
 
 	for i := 0; i < n; i++ {
 		for j := i + 1; j < n; j++ {
-			if rand.Intn(2) == 1 {
-				matrix[i][j] = 1
-				matrix[j][i] = 1
-			}
+			tmp := rand.Intn(11)
+			matrix[i][j] = tmp
+			matrix[j][i] = tmp
 		}
 	}
 	return matrix
