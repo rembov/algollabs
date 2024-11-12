@@ -19,7 +19,7 @@ func generateMatrix(n int) [][]int {
 			} else {
 				randomEdge := rand.Intn(2)
 				matrix[i][j] = randomEdge
-				matrix[j][i] = randomEdge
+				//matrix[j][i] = randomEdge
 			}
 		}
 	}
@@ -47,25 +47,6 @@ func dfs(v int, matrix [][]int, visited []bool) {
 		}
 	}
 }
-func generateList(n int) map[int][]int {
-	adjList := make(map[int][]int)
-	for i := 0; i < n; i++ {
-		for j := i + 1; j < n; j++ {
-			randomEdge := rand.Intn(2)
-			if randomEdge == 1 {
-				adjList[i] = append(adjList[i], j)
-				adjList[j] = append(adjList[j], i)
-			}
-		}
-	}
-	return adjList
-}
-
-func printList(adjList map[int][]int) {
-	for node, neighbors := range adjList {
-		fmt.Printf("%d: %v\n", node, neighbors)
-	}
-}
 
 func d(matrix [][]int) {
 	n := len(matrix)
@@ -82,7 +63,7 @@ func main() {
 	rand.Seed(time.Now().UnixNano())
 	n := 5
 	matrix := generateMatrix(n)
-	fmt.Println("Матрица смежности неориентированного графа:")
+	fmt.Println("Матрица смежности ориентированного графа:")
 	printMatrix(matrix)
 	fmt.Println("\nОбход в глубину матрицы:")
 	d(matrix)
