@@ -1,7 +1,6 @@
 package main
 
 import (
-	"container/list"
 	"fmt"
 	"math/rand"
 	"time"
@@ -39,30 +38,31 @@ func bfsMatrix(matrix [][]int) {
 
 	for v := 0; v < n; v++ {
 		if !visited[v] {
-			bfs(v, matrix, visited)
+			queue := []int{v}
+			visited[v] = true
+			bfs(matrix, queue, visited)
 		}
 	}
 }
 
-func bfs(start int, matrix [][]int, visited []bool) {
-	queue := list.New()
-	queue.PushBack(start)
-	visited[start] = true
+func bfs(matrix [][]int, queue []int, visited []bool) {
+	if len(queue) == 0 {
+		return
+	}
 
-	for queue.Len() > 0 {
-		element := queue.Front()
-		v := element.Value.(int)
-		queue.Remove(element)
+	v := queue[0]
+	queue = queue[1:]
 
-		fmt.Printf("%d ", v)
+	fmt.Printf("%d ", v)
 
-		for i := 0; i < len(matrix); i++ {
-			if matrix[v][i] == 1 && !visited[i] {
-				queue.PushBack(i)
-				visited[i] = true
-			}
+	for i := 0; i < len(matrix); i++ {
+		if matrix[v][i] == 1 && !visited[i] {
+			queue = append(queue, i)
+			visited[i] = true
 		}
 	}
+
+	bfs(matrix, queue, visited)
 }
 
 func main() {
