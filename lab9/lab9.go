@@ -62,18 +62,13 @@ func bfsD(matrix [][]int, start int) []int {
 
 func main() {
 	rand.Seed(time.Now().UnixNano())
-
 	n := 5
 	matrix := generateMatrix(n)
-
-	// Печатаем матрицу смежности
 	fmt.Println("Матрица смежности неориентированного графа:")
 	printMatrix(matrix)
-
 	start := 0
 	fmt.Printf("\nРасстояния от вершины %d:\n", start)
 	distances := bfsD(matrix, start)
-
 	for v, distance := range distances {
 		if distance == -1 {
 			fmt.Printf("До вершины %d нет пути.\n", v)
