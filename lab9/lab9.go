@@ -1,11 +1,31 @@
 package main
 
 import (
-	"container/list"
 	"fmt"
 	"math/rand"
 	"time"
 )
+
+type Queue struct {
+	elements []int
+}
+
+func (q *Queue) Enq(value int) {
+	q.elements = append(q.elements, value)
+}
+
+func (q *Queue) Deq() (int, bool) {
+	if len(q.elements) == 0 {
+		return 0, false
+	}
+	value := q.elements[0]
+	q.elements = q.elements[1:]
+	return value, true
+}
+
+func (q *Queue) IsEmpty() bool {
+	return len(q.elements) == 0
+}
 
 func generateMatrix(n int) [][]int {
 	matrix := make([][]int, n)
@@ -34,25 +54,24 @@ func printMatrix(matrix [][]int) {
 	}
 }
 
-func bfsD(matrix [][]int, start int) []int {
+func bfs(matrix [][]int, start int) []int {
 	n := len(matrix)
 	distances := make([]int, n)
 	for i := range distances {
 		distances[i] = -1
 	}
 
-	queue := list.New()
-	queue.PushBack(start)
+	queue := &Queue{}
+	queue.Enq(start)
 	distances[start] = 0
-	for queue.Len() > 0 {
-		element := queue.Front()
-		v := element.Value.(int)
-		queue.Remove(element)
+
+	for !queue.IsEmpty() {
+		v, _ := queue.Deq()
 
 		for i := 0; i < n; i++ {
 			if matrix[v][i] == 1 && distances[i] == -1 {
 				distances[i] = distances[v] + 1
-				queue.PushBack(i)
+				queue.Enq(i)
 			}
 		}
 	}
@@ -67,8 +86,7 @@ func main() {
 	fmt.Println("Матрица смежности неориентированного графа:")
 	printMatrix(matrix)
 	start := 0
-	fmt.Printf("\nРасстояния от вершины %d:\n", start)
-	distances := bfsD(matrix, start)
+	distances := bfs(matrix, start)
 	for v, distance := range distances {
 		if distance == -1 {
 			fmt.Printf("До вершины %d нет пути.\n", v)
