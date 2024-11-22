@@ -1,142 +1,112 @@
 package main
 
 import (
+	"container/list"
 	"fmt"
-	"math"
 	"math/rand"
 	"time"
 )
 
-func generateMatrix(n int) [][]int {
-	matrix := make([][]int, n)
-	for i := 0; i < n; i++ {
-		matrix[i] = make([]int, n)
-	}
-
-	for i := 0; i < n; i++ {
-		for j := i + 1; j < n; j++ {
-			tmp := rand.Intn(11)
-			matrix[i][j] = tmp
-			matrix[j][i] = tmp
-		}
-	}
-	return matrix
-}
-
-func printMatrix(matrix [][]int) {
-	for _, row := range matrix {
-		for _, val := range row {
-			fmt.Printf("%d ", val)
-		}
-		fmt.Println()
-	}
-}
-
-func bfsDistance(matrix [][]int, start int) []int {
-	n := len(matrix)
-	dist := make([]int, n)
-	for i := 0; i < n; i++ {
-		dist[i] = -1
-	}
-	dist[start] = 0
-
-	queue := []int{start}
-
-	for len(queue) > 0 {
-
-		v := queue[0]
-		queue = queue[1:]
-
-		for i := 0; i < n; i++ {
-			if matrix[v][i] > 0 && dist[i] == -1 {
-				queue = append(queue, i)
-				dist[i] = dist[v] + matrix[v][i]
-			}
-		}
-	}
-
-	return dist
-}
-
-func calculateRadiusDiameter(matrix [][]int) (int, int, []int, []int) {
-	n := len(matrix)
-	radius := math.MaxInt
-	diameter := 0
-	peripheral := []int{}
-	central := []int{}
-
-	distances := make([][]int, n)
-	for i := 0; i < n; i++ {
-		distances[i] = bfsDistance(matrix, i)
-	}
-
-	for i := 0; i < n; i++ {
-		maxDist := 0
-		for j := 0; j < n; j++ {
-			if distances[i][j] == -1 {
-				maxDist = math.MaxInt
-			}
-			maxDist = int(math.Max(float64(maxDist), float64(distances[i][j])))
-		}
-
-		diameter = int(math.Max(float64(diameter), float64(maxDist)))
-
-		radius = int(math.Min(float64(radius), float64(maxDist)))
-	}
-
-	for i := 0; i < n; i++ {
-		maxDist := 0
-		for j := 0; j < n; j++ {
-			if distances[i][j] == -1 {
-				maxDist = math.MaxInt
-			}
-			maxDist = int(math.Max(float64(maxDist), float64(distances[i][j])))
-		}
-		if maxDist == diameter {
-			peripheral = append(peripheral, i)
-		}
-	}
-
-	for i := 0; i < n; i++ {
-		maxDist := 0
-		for j := 0; j < n; j++ {
-			if distances[i][j] == -1 {
-				maxDist = math.MaxInt
-			}
-			maxDist = int(math.Max(float64(maxDist), float64(distances[i][j])))
-		}
-		if maxDist == radius {
-			central = append(central, i)
-		}
-	}
-
-	return radius, diameter, peripheral, central
-}
-func main() {
+func generateGraph(size int) [][]int {
 	rand.Seed(time.Now().UnixNano())
-
-	n := 5
-	matrix := generateMatrix(n)
-
-	fmt.Println("Матрица смежности для графа:")
-	printMatrix(matrix)
-
-	start := 0
-
-	distances := bfsDistance(matrix, start)
-
-	fmt.Printf("\nРасстояния от вершины %d:\n", start)
-	for i, d := range distances {
-		if d == -1 {
-			fmt.Printf("До вершины %d нет пути.\n", i)
-		} else {
-			fmt.Printf("Расстояние до вершины %d: %d\n", i, d)
+	graph := make([][]int, size)
+	for i := range graph {
+		graph[i] = make([]int, size)
+	}
+	for i := 0; i < size; i++ {
+		for j := i + 1; j < size; j++ {
+			weight := rand.Intn(10)
+			graph[i][j] = weight
+			graph[j][i] = weight
 		}
 	}
-	radius, diameter, peripheral, central := calculateRadiusDiameter(matrix)
+	return graph
+}
+
+func bfs(graph [][]int, start int) []int {
+	size := len(graph)
+	DIST := make([]int, size)
+	for i := range DIST {
+		DIST[i] = -1
+	}
+
+	queue := list.New()
+	queue.PushBack(start)
+	DIST[start] = 0
+
+	for queue.Len() > 0 {
+		v := queue.Remove(queue.Front()).(int)
+		for i := 0; i < size; i++ {
+			if graph[v][i] > 0 && DIST[i] == -1 {
+				DIST[i] = DIST[v] + graph[v][i]
+				queue.PushBack(i)
+			}
+		}
+	}
+
+	return DIST
+}
+
+func analyzeGraph(distances [][]int) (int, int, []int, []int) {
+	size := len(distances)
+	eccentricities := make([]int, size)
+
+	for i := 0; i < size; i++ {
+		for j := 0; j < size; j++ {
+			if distances[i][j] > eccentricities[i] {
+				eccentricities[i] = distances[i][j]
+			}
+		}
+	}
+
+	radius := int(^uint(0) >> 1)
+	diameter := 0
+
+	for _, e := range eccentricities {
+		if e > diameter {
+			diameter = e
+		}
+		if e < radius && e != 0 {
+			radius = e
+		}
+	}
+
+	var centralVertices, peripheralVertices []int
+	for i, e := range eccentricities {
+		if e == radius {
+			centralVertices = append(centralVertices, i)
+		}
+		if e == diameter {
+			peripheralVertices = append(peripheralVertices, i)
+		}
+	}
+
+	return radius, diameter, centralVertices, peripheralVertices
+}
+
+func main() {
+	size := 6
+	graph := generateGraph(size)
+
+	fmt.Println("Матрица смежности графа:")
+	for _, row := range graph {
+		fmt.Println(row)
+	}
+
+	distances := make([][]int, size)
+	for i := 0; i < size; i++ {
+		distances[i] = bfs(graph, i)
+	}
+
+	fmt.Println("\nМатрица расстояний:")
+	for _, row := range distances {
+		fmt.Println(row)
+	}
+
+	radius, diameter, centralVertices, peripheralVertices := analyzeGraph(distances)
 
 	fmt.Printf("\nРадиус графа: %d\n", radius)
 	fmt.Printf("Диаметр графа: %d\n", diameter)
-	fmt.Printf("Периферийные вершины: %v\n", peripheral)
-	fmt.Printf("Центральные вершины: %v\n", central)
+	fmt.Printf("Центральные вершины: %v\n", centralVertices)
+	fmt.Printf("Периферийные вершины: %v\n", peripheralVertices)
 }
