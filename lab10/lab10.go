@@ -22,6 +22,14 @@ func generateGraph(size int) [][]int {
 	}
 	return graph
 }
+func printMatrix(matrix [][]int) {
+	for _, row := range matrix {
+		for _, val := range row {
+			fmt.Printf("%d ", val)
+		}
+		fmt.Println()
+	}
+}
 
 func bfs(graph [][]int, start int) []int {
 	size := len(graph)
@@ -46,7 +54,16 @@ func bfs(graph [][]int, start int) []int {
 
 	return DIST
 }
+func calculateDistanceMatrix(graph [][]int) [][]int {
+	size := len(graph)
+	distances := make([][]int, size)
 
+	for i := 0; i < size; i++ {
+		distances[i] = bfs(graph, i)
+	}
+
+	return distances
+}
 func analyzeGraph(distances [][]int) (int, int, []int, []int) {
 	size := len(distances)
 	eccentricities := make([]int, size)
@@ -88,20 +105,11 @@ func main() {
 	size := 6
 	graph := generateGraph(size)
 
-	fmt.Println("Матрица смежности графа:")
-	for _, row := range graph {
-		fmt.Println(row)
-	}
-
-	distances := make([][]int, size)
-	for i := 0; i < size; i++ {
-		distances[i] = bfs(graph, i)
-	}
+	printMatrix(graph)
+	distances := calculateDistanceMatrix(graph)
 
 	fmt.Println("\nМатрица расстояний:")
-	for _, row := range distances {
-		fmt.Println(row)
-	}
+	printMatrix(distances)
 
 	radius, diameter, centralVertices, peripheralVertices := analyzeGraph(distances)
 
