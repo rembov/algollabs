@@ -64,9 +64,12 @@ func calculateDistanceMatrix(graph [][]int) [][]int {
 
 	return distances
 }
-func analyzeGraph(distances [][]int) (int, int, []int, []int) {
+
+func analyzeGraph(distances [][]int) {
 	size := len(distances)
 	eccentricities := make([]int, size)
+	radius := int(^uint(0) >> 1) 
+	diameter := 0
 
 	for i := 0; i < size; i++ {
 		for j := 0; j < size; j++ {
@@ -74,31 +77,38 @@ func analyzeGraph(distances [][]int) (int, int, []int, []int) {
 				eccentricities[i] = distances[i][j]
 			}
 		}
-	}
-
-	radius := int(^uint(0) >> 1)
-	diameter := 0
-
-	for _, e := range eccentricities {
-		if e > diameter {
-			diameter = e
+		if eccentricities[i] > diameter {
+			diameter = eccentricities[i]
 		}
-		if e < radius && e != 0 {
-			radius = e
+		if eccentricities[i] < radius && eccentricities[i] != 0 {
+			radius = eccentricities[i]
 		}
 	}
 
 	var centralVertices, peripheralVertices []int
 	for i, e := range eccentricities {
 		if e == radius {
-			centralVertices = append(centralVertices, i)
+			centralVertices = append(centralVertices, i+1)
 		}
 		if e == diameter {
-			peripheralVertices = append(peripheralVertices, i)
+			peripheralVertices = append(peripheralVertices, i+1)
 		}
 	}
 
-	return radius, diameter, centralVertices, peripheralVertices
+	// Print results
+	fmt.Printf("\nРадиус графа: %d\n", radius)
+	fmt.Printf("Диаметр графа: %d\n", diameter)
+	fmt.Printf("Центральные вершины: %v\n", centralVertices)
+	fmt.Printf("Периферийные вершины: %v\n", peripheralVertices)
+
+	// Reset distances
+	for i := 0; i < size; i++ {
+		for j := 0; j < size; j++ {
+			if distances[i][j] != 0 {
+				distances[i][j] = -1
+			}
+		}
+	}
 }
 
 func main() {
@@ -111,10 +121,6 @@ func main() {
 	fmt.Println("\nМатрица расстояний:")
 	printMatrix(distances)
 
-	radius, diameter, centralVertices, peripheralVertices := analyzeGraph(distances)
+	analyzeGraph(distances)
 
-	fmt.Printf("\nРадиус графа: %d\n", radius)
-	fmt.Printf("Диаметр графа: %d\n", diameter)
-	fmt.Printf("Центральные вершины: %v\n", centralVertices)
-	fmt.Printf("Периферийные вершины: %v\n", peripheralVertices)
 }
