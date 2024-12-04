@@ -3,6 +3,7 @@ package main
 import (
 	"container/list"
 	"fmt"
+	"math"
 	"math/rand"
 	"time"
 )
@@ -15,112 +16,136 @@ func generateGraph(size int) [][]int {
 	}
 	for i := 0; i < size; i++ {
 		for j := i + 1; j < size; j++ {
-			weight := rand.Intn(10)
+			weight := rand.Intn(10) + 1
 			graph[i][j] = weight
 			graph[j][i] = weight
 		}
 	}
 	return graph
 }
-func printMatrix(matrix [][]int) {
-	for _, row := range matrix {
+
+func printMatrix(matrix [][]int, header string) {
+	fmt.Println(header)
+	for i, row := range matrix {
+		fmt.Printf("%2d: ", i+1)
 		for _, val := range row {
-			fmt.Printf("%d ", val)
+			if val == math.MaxInt32 {
+				fmt.Print("∞ ")
+			} else {
+				fmt.Printf("%2d ", val)
+			}
 		}
 		fmt.Println()
 	}
+	fmt.Println()
 }
 
-func bfs(graph [][]int, start int) []int {
-	size := len(graph)
-	DIST := make([]int, size)
-	for i := range DIST {
-		DIST[i] = -1
-	}
+func bfsD(v int, size int, dist []int, graph [][]int) {
+	q := list.New()
+	q.PushBack(v)
+	dist[v] = 0
 
-	queue := list.New()
-	queue.PushBack(start)
-	DIST[start] = 0
+	for q.Len() > 0 {
+		front := q.Front()
+		v = front.Value.(int)
+		q.Remove(front)
 
-	for queue.Len() > 0 {
-		v := queue.Remove(queue.Front()).(int)
 		for i := 0; i < size; i++ {
-			if graph[v][i] > 0 && DIST[i] == -1 {
-				DIST[i] = DIST[v] + graph[v][i]
-				queue.PushBack(i)
+			if graph[v][i] != 0 && dist[v]+graph[v][i] < dist[i] {
+				dist[i] = dist[v] + graph[v][i]
+				q.PushBack(i)
 			}
 		}
 	}
-
-	return DIST
 }
+
 func calculateDistanceMatrix(graph [][]int) [][]int {
 	size := len(graph)
 	distances := make([][]int, size)
 
 	for i := 0; i < size; i++ {
-		distances[i] = bfs(graph, i)
+		dist := make([]int, size)
+		for j := 0; j < size; j++ {
+			dist[j] = math.MaxInt32
+		}
+		bfsD(i, size, dist, graph)
+		distances[i] = dist
 	}
 
 	return distances
 }
 
+func printDistances(e []int, size int) {
+	min := math.MaxInt32
+	max := math.MinInt32
+	periphery := []int{}
+	center := []int{}
+	for _, val := range e {
+		if val > max {
+			max = val
+		}
+		if val < min {
+			min = val
+		}
+		fmt.Printf("%d ", val)
+	}
+	fmt.Println()
+	for i, val := range e {
+		if val == max {
+			periphery = append(periphery, i+1)
+		}
+		if val == min {
+			center = append(center, i+1)
+		}
+	}
+
+	fmt.Printf("Радиус графа равен: %d\n", min)
+	fmt.Printf("Диаметр графа равен: %d\n", max)
+	fmt.Print("Центральные вершины: ")
+	if len(center) == 0 {
+		fmt.Print("null")
+	} else {
+		for _, v := range center {
+			fmt.Printf("%d ", v)
+		}
+	}
+	fmt.Println()
+	fmt.Print("Периферийные вершины: ")
+	if len(periphery) == 0 {
+		fmt.Print("null")
+	} else {
+		for _, v := range periphery {
+			fmt.Printf("%d ", v)
+		}
+	}
+	fmt.Println()
+}
+
 func analyzeGraph(distances [][]int) {
 	size := len(distances)
 	eccentricities := make([]int, size)
-	radius := int(^uint(0) >> 1) 
-	diameter := 0
-
 	for i := 0; i < size; i++ {
 		for j := 0; j < size; j++ {
-			if distances[i][j] > eccentricities[i] {
+			if distances[i][j] < math.MaxInt32 && distances[i][j] > eccentricities[i] {
 				eccentricities[i] = distances[i][j]
 			}
 		}
-		if eccentricities[i] > diameter {
-			diameter = eccentricities[i]
-		}
-		if eccentricities[i] < radius && eccentricities[i] != 0 {
-			radius = eccentricities[i]
-		}
 	}
 
-	var centralVertices, peripheralVertices []int
-	for i, e := range eccentricities {
-		if e == radius {
-			centralVertices = append(centralVertices, i+1)
-		}
-		if e == diameter {
-			peripheralVertices = append(peripheralVertices, i+1)
-		}
-	}
-
-	// Print results
-	fmt.Printf("\nРадиус графа: %d\n", radius)
-	fmt.Printf("Диаметр графа: %d\n", diameter)
-	fmt.Printf("Центральные вершины: %v\n", centralVertices)
-	fmt.Printf("Периферийные вершины: %v\n", peripheralVertices)
-
-	// Reset distances
-	for i := 0; i < size; i++ {
-		for j := 0; j < size; j++ {
-			if distances[i][j] != 0 {
-				distances[i][j] = -1
-			}
-		}
-	}
+	fmt.Println("\nЭксцентриситеты вершин:")
+	printDistances(eccentricities, size)
 }
 
 func main() {
-	size := 6
+	var size int
+	fmt.Print("Введите размер графа: ")
+	fmt.Scan(&size)
+
 	graph := generateGraph(size)
+	printMatrix(graph, "Матрица смежности графа:")
 
-	printMatrix(graph)
 	distances := calculateDistanceMatrix(graph)
-
-	fmt.Println("\nМатрица расстояний:")
-	printMatrix(distances)
+	printMatrix(distances, "Матрица расстояний:")
 
 	analyzeGraph(distances)
-
 }
