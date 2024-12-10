@@ -1,5 +1,4 @@
 package main
-
 import (
 	"container/list"
 	"fmt"
@@ -7,7 +6,6 @@ import (
 	"math/rand"
 	"time"
 )
-
 func generateGraph(size int) [][]int {
 	rand.Seed(time.Now().UnixNano())
 	graph := make([][]int, size)
@@ -23,7 +21,6 @@ func generateGraph(size int) [][]int {
 	}
 	return graph
 }
-
 func printMatrix(matrix [][]int, header string) {
 	fmt.Println(header)
 	for i, row := range matrix {
@@ -39,12 +36,10 @@ func printMatrix(matrix [][]int, header string) {
 	}
 	fmt.Println()
 }
-
 func bfsD(v int, size int, dist []int, graph [][]int) {
 	q := list.New()
 	q.PushBack(v)
 	dist[v] = 0
-
 	for q.Len() > 0 {
 		front := q.Front()
 		v = front.Value.(int)
@@ -58,11 +53,9 @@ func bfsD(v int, size int, dist []int, graph [][]int) {
 		}
 	}
 }
-
 func calculateDistanceMatrix(graph [][]int) [][]int {
 	size := len(graph)
 	distances := make([][]int, size)
-
 	for i := 0; i < size; i++ {
 		dist := make([]int, size)
 		for j := 0; j < size; j++ {
@@ -74,8 +67,7 @@ func calculateDistanceMatrix(graph [][]int) [][]int {
 
 	return distances
 }
-
-func printDistances(e []int, size int) {
+func printDistances(e []int) {
 	min := math.MaxInt32
 	max := math.MinInt32
 	periphery := []int{}
@@ -120,7 +112,6 @@ func printDistances(e []int, size int) {
 	}
 	fmt.Println()
 }
-
 func analyzeGraph(distances [][]int) {
 	size := len(distances)
 	eccentricities := make([]int, size)
@@ -133,7 +124,7 @@ func analyzeGraph(distances [][]int) {
 	}
 
 	fmt.Println("\nЭксцентриситеты вершин:")
-	printDistances(eccentricities, size)
+	printDistances(eccentricities)
 }
 
 func main() {
